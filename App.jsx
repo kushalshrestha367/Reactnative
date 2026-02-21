@@ -1,8 +1,15 @@
-import React, { Component } from 'react'
+import React, {  createContext, useState } from 'react'
 import { Image, Text, View , TextInput,Button, TouchableOpacity, Pressable, TouchableHighlight, TouchableWithoutFeedback} from 'react-native'
 import Introduction from './src/Components/Introduction'
 import EventHandling from './src/Components/EventHandling'
 import LoginForm from './src/Components/LoginForm'
+import StateManagement from './src/Components/StateManagement'
+import Flast from './src/Components/Flast'
+import Nav from './src/Components/Nav'
+import Home from './src/Components/Home'
+import ListRendering from './src/Components/ListRendering'
+import SectionLists from './src/Components/SectionLists'
+import { Authprovider } from './src/Components/AuthContext'
 import { Event } from 'react-native/types_generated/Libraries/Animated/AnimatedExports'
 
 //custom component
@@ -39,7 +46,10 @@ const Enrollment = () => {
     </View>
   )
 }
+
+export const Context = createContext()
 const App = () => {
+  // const [isDarkMode, setIsDarkMode] = useState(false)
   return (
     <View>
         {/* <RoundedButton title="Register"/>
@@ -48,7 +58,9 @@ const App = () => {
        <Introduction/>
        <Enrollment/> */}
        {/* <EventHandling /> */}
-     <LoginForm />
+       {/* <StateManagement /> */}
+   
+     
         {/* <TextInput placeholder="Type here..." keyboardType="default" autoCapitalize="words" secureTextEntry />
         <Button title="click me" color="blue"/>
         <Image
@@ -69,6 +81,21 @@ const App = () => {
         <TouchableWithoutFeedback>
           <Text>Don't Touch Me</Text>
         </TouchableWithoutFeedback> */}
+        {/* <Context.Provider value={[isDarkMode, setIsDarkMode]}>
+        <Nav />
+        <Text>{isDarkMode ? "In Dark Mode" : "In Light Mode"}</Text>
+          <LoginForm />
+        </Context.Provider> */}
+
+        {/* <Authprovider>
+          <Nav />
+          <Home />
+          
+        </Authprovider> */}
+        {/* <ListRendering /> */}
+        <Flast />
+        <SectionLists />
+
 
        
       </View>
