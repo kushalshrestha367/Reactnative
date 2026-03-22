@@ -8,7 +8,9 @@ import Flast from './src/Components/Flast'
 import Nav from './src/Components/Nav'
 import Home from './src/Components/Home'
 import ListRendering from './src/Components/ListRendering'
+import CustomModal from './src/Components/CustomModal'
 import SectionLists from './src/Components/SectionLists'
+import DialogBox from './src/Components/DialogBox'
 import { Authprovider } from './src/Components/AuthContext'
 import { Event } from 'react-native/types_generated/Libraries/Animated/AnimatedExports'
 
@@ -93,8 +95,10 @@ const App = () => {
           
         </Authprovider> */}
         {/* <ListRendering /> */}
-        <Flast />
+        {/* <Flast />
         <SectionLists />
+        <DialogBox/> */}
+        <CustomModal />
 
 
        

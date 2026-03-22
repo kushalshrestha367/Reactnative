@@ -11,19 +11,19 @@ const SectionLists = () => {
         {
             id: 2,
             title: 'Vegetables',
-            data: ['Carrot', 'Broccoli', 'Spinach']
+            data: ['Carrot', 'Broccoli', 'Cauli']
         }
     ]
     return (
       <View>
         <SectionList
         sections={items}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item,index) => index}
         renderItem={({item}) => (
            <Text>{item}</Text>
         )}
-        renderSectionHeader={({section}) => (
-                <Text style={{fontSize:20, fontWeight:'bold', backgroundColor:'lightgray', padding:5}}>{section.title}</Text>
+        renderSectionHeader={({section: {title}}) => (
+                <Text style={{fontSize:20, fontWeight:'bold', backgroundColor:'lightgray', padding:5}}>{title}</Text>
 
         )}
         />
