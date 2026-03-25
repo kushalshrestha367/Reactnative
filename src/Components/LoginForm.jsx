@@ -9,7 +9,7 @@ import {
 import React, { useContext, useState } from 'react';
 import { Context } from '../../App';
 
-const LoginForm = () => {
+const LoginForm = ({navigation}) => {
   const [isDarkMode, setIsDarkMode] = useContext(Context);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +19,7 @@ const LoginForm = () => {
       Alert.alert('Please fill in all fields');
     } else {
       Alert.alert('Login successful', email);
+      navigation.navigate('Home',{email})
     }
   };
 

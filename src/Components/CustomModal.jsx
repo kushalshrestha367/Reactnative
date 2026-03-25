@@ -26,7 +26,6 @@ const CustomModal = () => {
     )
   }
 
-
   const popUp = StyleSheet.create({
     mainContainer:{
         flex:1,
