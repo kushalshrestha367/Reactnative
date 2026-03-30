@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Button, Text, View } from 'react-native'
 
-const Contact = () => {
+const Contact = ({navigation}) => {
     return (
       <View>
         <Text> This is Contact Page. </Text>
+        <Button title='Go to Next Page' onPress={() => navigation.navigate('Modal')} />
+
       </View>
     )
   }

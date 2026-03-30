@@ -24,11 +24,15 @@ import ListRendering from './src/Components/ListRendering'
 import CustomModal from './src/Components/CustomModal'
 import SectionLists from './src/Components/SectionLists'
 import DialogBox from './src/Components/DialogBox'
-import { Authprovider } from './src/Components/AuthContext'
+import {Authprovider} from './src/context/AuthContext'
+
 
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Login from './src/screens/Login'
+import Register from './src/screens/Register'
 
 // Custom Button Component
 const RoundedButton = ({ title }) => {
@@ -81,11 +85,14 @@ const Enrollment = () => {
 // Context
 export const Context = createContext()
 
-// Navigation Stack
+// Navigation Stack instance
 const Stack = createNativeStackNavigator()
 
 // drawer
 const Drawer = createDrawerNavigator()
+
+//tabs
+const BottomTab = createBottomTabNavigator()
 
 const App = () => {
   return (
@@ -143,22 +150,35 @@ const App = () => {
       {/* <SectionLists /> */}
       {/* <DialogBox /> */}
       {/* <CustomModal /> */}
+     
 
       <NavigationContainer>
-        <Stack.Navigator>
-          {/* <Stack.Screen name='Login' component={LoginForm} /> */}
-          <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='About' component={About}/>
-          <Stack.Screen name='Contact'component={Contact} />
-        </Stack.Navigator>
+        {/* <BottomTab.Navigator> */}
+          {/* <BottomTab.Screen name='Login' component={LoginForm} /> */}
+          {/* <BottomTab.Screen name='Home' component={Home} /> */}
+          {/* <BottomTab.Screen name='About' component={About}/> */}
+          {/* <BottomTab.Screen name='Contact'component={Contact} /> */}
+          {/* <BottomTab.Screen name='Modal' component={CustomModal} /> */}
+        {/* </BottomTab.Navigator> */}
 
         {/* <Drawer.Navigator>
           <Drawer.Screen name='Sidebar' component={Sidebar} />
           <Drawer.Screen name='home' component={Home} />
         </Drawer.Navigator> */}
 
+        
+            <Authprovider>
+              <Stack.Navigator>
+            <Stack.Screen name='Login' component={Login} />
+            <Stack.Screen name='Register' component={Register} />
+            <Stack.Screen name='Home' component={Home} />
+          </Stack.Navigator>
+            </Authprovider>
+       
+
 
       </NavigationContainer>
+  
     </>
   )
 }
