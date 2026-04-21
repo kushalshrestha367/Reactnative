@@ -240,7 +240,7 @@
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack'; 
+import { createStackNavigator } from '@react-navigation/stack'; 
 
 import GetRequest from './src/Components/GetRequest';
 import PostRequest from './src/Components/PostRequest';
@@ -248,21 +248,23 @@ import PatchRequest from './src/Components/PatchRequest';
 // import PutRequest from './src/Components/PutRequest';
 import Login from './src/Components/UserAuthentication/Login'
 import Register from './src/Components/UserAuthentication/Register'
+import ResetPassword from './src/Components/UserAuthentication/ResetPassword';
 
-const Stack = createNativeStackNavigator(); 
+const AuthStack = createStackNavigator(); 
 
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <AuthStack.Navigator>
         {/* <Stack.Screen name="GetRequest" component={GetRequest} />
         <Stack.Screen name="PostRequest" component={PostRequest} />
         <Stack.Screen name="PatchRequest" component={PatchRequest} /> */}
         {/* <Stack.Screen name="AsyncStoragePractice" component={AsyncStoragePractice} /> */}
-    <Stack.Screen name='Register' component={Register}/>
-        <Stack.Screen name='Login' component={Login}/>
+    <AuthStack.Screen name='Register' component={Register}/>
+        <AuthStack.Screen name='Login' component={Login}/>
+        <AuthStack.Screen name='ResetPassword' component={ResetPassword} />
     
-      </Stack.Navigator>
+      </AuthStack.Navigator>
     </NavigationContainer>
     // <ScrollView>
     //   {/* <AsyncStoragePractice /> */}

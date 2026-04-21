@@ -26,3 +26,14 @@ export const loginUser = async (email, password) => {
     throw new Error(error.code);
   }
 };
+
+export const resetPassword = async (email) => {
+  try {
+    await auth().sendPasswordResetEmail(email);
+    return ;
+  } 
+  catch (error) {
+    console.error(error.code);
+    throw new Error(error.code);
+  } 
+};

@@ -7,24 +7,22 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
-import { loginUser } from '../../auth';
+import { resetPassword } from '../../auth';
 
-const Login = ({ navigation }) => {
+const ResetPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
+    if(email == '') {
+      Alert.alert('Error', 'Please enter your email address.');
+      return;
+    }
     try {
-      const { user, isEmailVerified } = await loginUser(email, password);
-
-      if (isEmailVerified) {
-        Alert.alert('Success', 'Login successful');
-      } else {
-        Alert.alert(
-          'Email not verified',
-          'Please verify your email before logging in.'
-        );
-      }
+      await resetPassword(email);
+      Alert.alert(
+        'Success',
+        'Password reset email sent. Please check your inbox.'
+      );
     } catch (error) {
       Alert.alert('Error', error.message);
     }
@@ -32,9 +30,13 @@ const Login = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back</Text>
+      <Text style={styles.title}>Reset Password</Text>
 
       <View style={styles.card}>
+        <Text style={styles.description}>
+          Enter your email and we’ll send you a reset link.
+        </Text>
+
         <TextInput
           placeholder="Email"
           placeholderTextColor="#999"
@@ -45,36 +47,19 @@ const Login = ({ navigation }) => {
           style={styles.input}
         />
 
-        <TextInput
-          placeholder="Password"
-          placeholderTextColor="#999"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          style={styles.input}
-        />
-
         <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Send Reset Link</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-          <Text style={styles.link}>
-            Reset Password
-          </Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.link}>
-            Don’t have an account? Register
-          </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          <Text style={styles.link}>Back to Login</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 };
 
-export default Login;
+export default ResetPassword;
 
 const styles = StyleSheet.create({
   container: {
@@ -85,7 +70,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#222',
     textAlign: 'center',
@@ -100,6 +85,13 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 10,
+  },
+
+  description: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 15,
+    textAlign: 'center',
   },
 
   input: {
@@ -117,7 +109,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 5,
   },
 
   buttonText: {
