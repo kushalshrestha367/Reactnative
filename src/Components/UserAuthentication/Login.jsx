@@ -19,6 +19,7 @@ const Login = ({ navigation }) => {
 
       if (isEmailVerified) {
         Alert.alert('Success', 'Login successful');
+        navigation.navigate('Home');
       } else {
         Alert.alert(
           'Email not verified',

@@ -26,7 +26,6 @@
 // // import DialogBox from './src/Components/DialogBox'
 // // import {Authprovider} from './src/context/AuthContext'
 
-
 // import { NavigationContainer } from '@react-navigation/native'
 // // import { createNativeStackNavigator } from '@react-navigation/native-stack'
 // // import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -129,19 +128,19 @@
 // //       </TouchableWithoutFeedback> */}
 
 // //       {/* Context Example */}
-// //       {/* 
+// //       {/*
 // //       <Context.Provider value={[]}>
 // //         <Nav />
 // //         <LoginForm />
-// //       </Context.Provider> 
+// //       </Context.Provider>
 // //       */}
 
 // //       {/* Auth Example */}
-// //       {/* 
+// //       {/*
 // //       <Authprovider>
 // //         <Nav />
 // //         <Home />
-// //       </Authprovider> 
+// //       </Authprovider>
 // //       */}
 
 // //       {/* Lists */}
@@ -150,7 +149,6 @@
 // //       {/* <SectionLists /> */}
 // //       {/* <DialogBox /> */}
 // //       {/* <CustomModal /> */}
-     
 
 // //       <NavigationContainer>
 // //         {/* <BottomTab.Navigator> */}
@@ -166,7 +164,6 @@
 // //           <Drawer.Screen name='home' component={Home} />
 // //         </Drawer.Navigator> */}
 
-        
 // //             <Authprovider>
 // //               <Stack.Navigator>
 // //             <Stack.Screen name='Login' component={Login} />
@@ -174,11 +171,9 @@
 // //             <Stack.Screen name='Home' component={Home} />
 // //           </Stack.Navigator>
 // //             </Authprovider>
-       
-
 
 // //       </NavigationContainer>
-  
+
 // //     </>
 // //   )
 // // }
@@ -190,8 +185,6 @@
 // // }
 
 // // export default App
-
-
 
 // import React, { useEffect, useState } from 'react'
 // import { Text, View } from 'react-native'
@@ -237,39 +230,63 @@
 
 // export default App
 
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack'; 
+import { createStackNavigator } from '@react-navigation/stack';
 
 import GetRequest from './src/Components/GetRequest';
 import PostRequest from './src/Components/PostRequest';
 import PatchRequest from './src/Components/PatchRequest';
 // import PutRequest from './src/Components/PutRequest';
-import Login from './src/Components/UserAuthentication/Login'
-import Register from './src/Components/UserAuthentication/Register'
+import Login from './src/Components/UserAuthentication/Login';
+import Register from './src/Components/UserAuthentication/Register';
 import ResetPassword from './src/Components/UserAuthentication/ResetPassword';
+import Home from './src/Components/Home';
+import {  FireBaseAuthContext, FireBaseAuthprovider } from './src/context/firebaseAuthContext';
+import { checkLogin } from './src/auth';
+import { Alert } from 'react-native';
 
-const AuthStack = createStackNavigator(); 
+const Stack = createStackNavigator();
+
+const AuthStack = () => {
+ return(
+   <Stack.Navigator>
+    <Stack.Screen
+      name="Register"
+      component={Register}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Login"
+      component={Login}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="ResetPassword"
+      component={ResetPassword}
+      options={{ headerShown: false }}
+    />
+  </Stack.Navigator>)};
+
+  const PrivateStack = () => {
+    //firebase auth context
+    // const {loggedInUser} = useContext(FireBaseAuthContext);
+  return (
+      <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>)
+  };
 
 const App = () => {
+   const [loggedInUser, setLoggedInUser] = useState();
+  useEffect(() => {
+    checkLogin(setLoggedInUser);
+  }, []); 
+
   return (
     <NavigationContainer>
-      <AuthStack.Navigator>
-        {/* <Stack.Screen name="GetRequest" component={GetRequest} />
-        <Stack.Screen name="PostRequest" component={PostRequest} />
-        <Stack.Screen name="PatchRequest" component={PatchRequest} /> */}
-        {/* <Stack.Screen name="AsyncStoragePractice" component={AsyncStoragePractice} /> */}
-    <AuthStack.Screen name='Register' component={Register}/>
-        <AuthStack.Screen name='Login' component={Login}/>
-        <AuthStack.Screen name='ResetPassword' component={ResetPassword} />
-    
-      </AuthStack.Navigator>
+        {loggedInUser ? <PrivateStack /> : <AuthStack />}
     </NavigationContainer>
-    // <ScrollView>
-    //   {/* <AsyncStoragePractice /> */}
-    //   <Text>hello</Text>
-    // </ScrollView>
   );
 };
 

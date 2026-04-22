@@ -46,20 +46,75 @@
 
 //   export default Home
 
-import React, { useContext } from 'react';
-import { View, Text } from 'react-native';
-import { AuthContext } from '../context/AuthContext';
+// import React, { useContext } from 'react';
+// import { View, Text } from 'react-native';
+// import { AuthContext } from '../context/AuthContext';
+
+// const Home = () => {
+//   const {user} = useContext(AuthContext);
+//   return (
+//     <View>
+//       <Text>Welcome Home</Text> 
+//       <Text>{user?.name}</Text>
+//       <Text>{user?.email}</Text>
+//     </View>
+//   );
+// };
+
+// export default Home;
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { logoutUser } from "../auth";
 
 const Home = () => {
-  const {user} = useContext(AuthContext);
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      Alert.alert('Logout', 'Logout successful');
+      // navigate('Login');
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
   return (
-    <View>
-      <Text>Welcome Home</Text>
-      <Text>{user?.name}</Text>
-      <Text>{user?.email}</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Welcome to Hell 😈</Text>
+
+      <TouchableOpacity style={styles.button} onPress={handleLogout}>
+        <Text style={styles.buttonText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 export default Home;
 
+// ---------------- STYLES ----------------
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000",
+  },
+
+  text: {
+    fontSize: 22,
+    color: "#fff",
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+
+  button: {
+    backgroundColor: "#f44336",
+    padding: 12,
+    borderRadius: 8,
+  },
+
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+});
