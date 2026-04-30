@@ -241,6 +241,7 @@ import PatchRequest from './src/Components/PatchRequest';
 import Login from './src/Components/UserAuthentication/Login';
 import Register from './src/Components/UserAuthentication/Register';
 import ResetPassword from './src/Components/UserAuthentication/ResetPassword';
+import UserCrud from './src/Components/UserCrud/UserCrud';
 import Home from './src/Components/Home';
 import {  FireBaseAuthContext, FireBaseAuthprovider } from './src/context/firebaseAuthContext';
 import { checkLogin } from './src/auth';
@@ -284,9 +285,11 @@ const App = () => {
   }, []); 
 
   return (
-    <NavigationContainer>
-        {loggedInUser ? <PrivateStack /> : <AuthStack />}
-    </NavigationContainer>
+    // <NavigationContainer>
+    //     {loggedInUser ? <PrivateStack /> : <AuthStack />}
+    // </NavigationContainer>  //authprovider is used to check if user is logged in or not and render the appropriate stack
+  <UserCrud />
+
   );
 };
 
